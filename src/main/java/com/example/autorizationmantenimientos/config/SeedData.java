@@ -6,6 +6,7 @@ import com.example.autorizationmantenimientos.model.User;
 import com.example.autorizationmantenimientos.repository.AppRepository;
 import com.example.autorizationmantenimientos.repository.RoleRepository;
 import com.example.autorizationmantenimientos.repository.UserRepository;
+import com.example.autorizationmantenimientos.utils.RoleValues;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -56,7 +57,11 @@ public class SeedData {
     }
 
     public void seedRoles() {
-        List<String> roles = List.of(Role.QUERY_AUTHORIZER, Role.QUERY_CREATOR, Role.USER_CREATOR);
+        List<String> roles = List.of(
+                RoleValues.QUERY_AUTHORIZER.toString(),
+                RoleValues.QUERY_CREATOR.toString(),
+                RoleValues.USER_CREATOR.toString()
+        );
         List<Role> role = roleRepo.findByNameIn(roles);
         if (new HashSet<>(role.stream().map(Role::getName).collect(Collectors.toList())).containsAll(roles)) {
             roleId = role.stream().map(Role::getId).collect(Collectors.toList());

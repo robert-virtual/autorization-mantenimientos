@@ -8,6 +8,7 @@ import com.example.autorizationmantenimientos.model.App;
 import com.example.autorizationmantenimientos.model.Role;
 import com.example.autorizationmantenimientos.model.User;
 import com.example.autorizationmantenimientos.repository.UserRepository;
+import com.example.autorizationmantenimientos.utils.RoleValues;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +45,7 @@ public class AuthService {
 
     public User register(UserRequest user) throws Exception {
         if (
-                SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().noneMatch(x -> Objects.equals(x.getAuthority(), Role.USER_CREATOR))
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().noneMatch(x -> Objects.equals(x.getAuthority(), RoleValues.USER_CREATOR.toString()))
         ) throw new Exception(User.MISSING_USER_CREATOR_ROLE_ERROR);
         Optional<User> userExist = userRepo.findOneByEmail(user.getEmail());
         if (userExist.isPresent()) throw new Exception("Email taken");
@@ -63,5 +64,10 @@ public class AuthService {
                         .email(user.getEmail())
                         .build()
         );
+    }
+
+    public User getUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepo.findOneByEmail(email).orElseThrow();
     }
 }

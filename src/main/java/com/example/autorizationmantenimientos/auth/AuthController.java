@@ -17,6 +17,12 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @GetMapping("/user")
+    public ResponseEntity<User> getUser() {
+        return ResponseEntity.ok(
+                authService.getUser()
+        );
+    }
     @GetMapping("/check-token")
     public ResponseEntity<Boolean> checkToken() {
         return ResponseEntity.ok(
