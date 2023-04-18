@@ -20,4 +20,5 @@ public class App {
     private String name;
     private String status;
     public static final String STATUS_ACTIVE = "active";
+
 }
