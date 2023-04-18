@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,5 +20,11 @@ public class AppsService {
 
     public List<App> all() {
         return appRepo.findAll();
+    }
+
+    public Optional<App> byId(int appId) {
+        Optional<App> app = appRepo.findById(appId);
+        System.out.println(app);
+        return app;
     }
 }

@@ -8,12 +8,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("apps")
 @RequiredArgsConstructor
 public class AppsController {
     private final AppsService appsService;
+
+    @GetMapping("{app_id}")
+    public Optional<App> getById(
+            @PathVariable int app_id
+    ) {
+        return appsService.byId(app_id);
+    }
 
     @GetMapping("all")
     public ResponseEntity<BasicResponse<List<App>>> create(

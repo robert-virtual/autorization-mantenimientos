@@ -19,6 +19,7 @@ public class App {
     private int id;
     private String name;
     private String status;
+    private String executeQueryEndpoint;
     public static final String STATUS_ACTIVE = "active";
 
 }
