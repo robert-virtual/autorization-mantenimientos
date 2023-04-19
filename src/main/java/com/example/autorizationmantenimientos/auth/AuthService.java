@@ -2,8 +2,10 @@ package com.example.autorizationmantenimientos.auth;
 
 import com.example.autorizationmantenimientos.auth.dto.AuthCredentials;
 import com.example.autorizationmantenimientos.auth.dto.LoginResponse;
+import com.example.autorizationmantenimientos.auth.dto.UpdateRoles;
 import com.example.autorizationmantenimientos.auth.dto.UserRequest;
 import com.example.autorizationmantenimientos.config.JwtService;
+import com.example.autorizationmantenimientos.dto.BasicResponse;
 import com.example.autorizationmantenimientos.model.App;
 import com.example.autorizationmantenimientos.model.Role;
 import com.example.autorizationmantenimientos.model.User;
@@ -17,8 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,5 +70,24 @@ public class AuthService {
     public User getUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepo.findOneByEmail(email).orElseThrow();
+    }
+
+    public BasicResponse<User> addRoles(int user_id, UpdateRoles updateRoles) {
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> loggedUser = userRepo.findOneByEmail(userEmail);
+        if (loggedUser.isEmpty()) return BasicResponse.<User>builder().error("Bad Request").build();
+        Optional<User> user = userRepo.findById(user_id);
+        if (user.isEmpty()) return BasicResponse.<User>builder().error("User not found").build();
+        if (loggedUser.get().getRoles().stream().noneMatch(r -> Objects.equals(r.getName(), RoleValues.USER_CREATOR.toString())))
+            return BasicResponse.<User>builder().error("You do not have the required role to update roles").build();
+        Set<Integer> setOfRoles = user.get().getRoles().stream().map(Role::getId).collect(Collectors.toSet());
+        setOfRoles.addAll(updateRoles.getRoles());
+        user.map(user_ -> {
+            user_.setRoles(setOfRoles.stream().map(
+                    roleId -> Role.builder().id(roleId).build()
+            ).collect(Collectors.toList()));
+            return userRepo.save(user_);
+        });
+        return BasicResponse.<User>builder().data(user.get()).build();
     }
 }

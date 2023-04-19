@@ -2,6 +2,7 @@ package com.example.autorizationmantenimientos.auth;
 
 import com.example.autorizationmantenimientos.auth.dto.AuthCredentials;
 import com.example.autorizationmantenimientos.auth.dto.LoginResponse;
+import com.example.autorizationmantenimientos.auth.dto.UpdateRoles;
 import com.example.autorizationmantenimientos.auth.dto.UserRequest;
 import com.example.autorizationmantenimientos.dto.BasicResponse;
 import com.example.autorizationmantenimientos.model.User;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,6 +24,12 @@ public class AuthController {
     public ResponseEntity<User> getUser() {
         return ResponseEntity.ok(
                 authService.getUser()
+        );
+    }
+    @PutMapping("/user/{user_id}/roles")
+    public ResponseEntity<BasicResponse<User>> addRoles(@PathVariable int user_id,@RequestBody UpdateRoles updateRoles) {
+        return ResponseEntity.ok(
+                authService.addRoles(user_id,updateRoles)
         );
     }
     @GetMapping("/check-token")
