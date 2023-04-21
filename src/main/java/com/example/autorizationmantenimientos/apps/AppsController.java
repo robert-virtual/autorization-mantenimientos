@@ -1,6 +1,7 @@
 package com.example.autorizationmantenimientos.apps;
 
 import com.example.autorizationmantenimientos.apps.dto.AppRequest;
+import com.example.autorizationmantenimientos.dto.AddUserRequest;
 import com.example.autorizationmantenimientos.model.App;
 import com.example.autorizationmantenimientos.dto.BasicResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,17 @@ public class AppsController {
         );
     }
 
+    @PutMapping("add-user")
+    public ResponseEntity<BasicResponse<App>> addUser(
+            @RequestBody AddUserRequest addUserRequest
+    ) {
+        return ResponseEntity.ok(
+                BasicResponse
+                        .<App>builder()
+                        .data(appsService.addUser(addUserRequest))
+                        .build()
+        );
+    }
     @PostMapping("create")
     public ResponseEntity<BasicResponse<App>> create(
             @RequestBody AppRequest app

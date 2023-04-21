@@ -7,6 +7,7 @@ import com.example.autorizationmantenimientos.auth.dto.UserRequest;
 import com.example.autorizationmantenimientos.dto.BasicResponse;
 import com.example.autorizationmantenimientos.model.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
     private final AuthService authService;
@@ -26,12 +28,14 @@ public class AuthController {
                 authService.getUser()
         );
     }
+
     @PutMapping("/user/{user_id}/roles")
-    public ResponseEntity<BasicResponse<User>> addRoles(@PathVariable int user_id,@RequestBody UpdateRoles updateRoles) {
+    public ResponseEntity<BasicResponse<User>> addRoles(@PathVariable int user_id, @RequestBody UpdateRoles updateRoles) {
         return ResponseEntity.ok(
-                authService.addRoles(user_id,updateRoles)
+                authService.addRoles(user_id, updateRoles)
         );
     }
+
     @GetMapping("/check-token")
     public ResponseEntity<Boolean> checkToken() {
         return ResponseEntity.ok(
@@ -50,6 +54,7 @@ public class AuthController {
                             .build()
             );
         } catch (Exception e) {
+            log.error("Register error: %s", e.getMessage());
             return new ResponseEntity<>(
                     BasicResponse.<User>builder()
                             .error(e.getMessage())

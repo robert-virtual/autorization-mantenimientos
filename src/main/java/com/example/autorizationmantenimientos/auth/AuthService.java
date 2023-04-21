@@ -12,6 +12,7 @@ import com.example.autorizationmantenimientos.model.User;
 import com.example.autorizationmantenimientos.repository.UserRepository;
 import com.example.autorizationmantenimientos.utils.RoleValues;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
