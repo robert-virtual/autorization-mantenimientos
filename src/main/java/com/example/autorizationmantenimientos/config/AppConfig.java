@@ -21,15 +21,6 @@ public class AppConfig {
 
     private final UserRepository userRepo;
     @Bean
-    WebMvcConfigurer configurer(){
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
-            }
-        };
-    }
-    @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepo.findOneByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
