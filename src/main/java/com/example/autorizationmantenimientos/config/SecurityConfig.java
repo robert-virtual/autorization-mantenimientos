@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .antMatchers("/auth/login")
+                .antMatchers("/auth/login","/swagger-ui/**","/v3/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
