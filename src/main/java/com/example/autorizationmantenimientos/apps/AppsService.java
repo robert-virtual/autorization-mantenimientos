@@ -1,5 +1,6 @@
 package com.example.autorizationmantenimientos.apps;
 
+import com.example.autorizationmantenimientos.AuditLogService;
 import com.example.autorizationmantenimientos.apps.dto.AppRequest;
 import com.example.autorizationmantenimientos.dto.AddUserRequest;
 import com.example.autorizationmantenimientos.model.App;
@@ -18,9 +19,12 @@ import java.util.Optional;
 public class AppsService {
     private final AppRepository appRepo;
     private final UserRepository userRepo;
+    private final AuditLogService auditLogService;
 
     public App create(AppRequest app) {
-        return appRepo.save(App.builder().name(app.getName()).status(App.STATUS_ACTIVE).build());
+        App newApp = appRepo.save(App.builder().name(app.getName()).status(App.STATUS_ACTIVE).build());
+        auditLogService.audit("create app", newApp);
+        return newApp;
     }
 
     public List<App> all() {
@@ -39,6 +43,7 @@ public class AppsService {
         App app = appRepo.findById(addUserRequest.getApp_id()).orElseThrow();
         user.getApps().add(app);
         userRepo.save(user);
+        auditLogService.audit("add user to app", user);
         return app;
     }
 }

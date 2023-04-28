@@ -1,5 +1,6 @@
 package com.example.autorizationmantenimientos.auth;
 
+import com.example.autorizationmantenimientos.AuditLogService;
 import com.example.autorizationmantenimientos.auth.dto.AuthCredentials;
 import com.example.autorizationmantenimientos.auth.dto.LoginResponse;
 import com.example.autorizationmantenimientos.auth.dto.UpdateRoles;
@@ -31,6 +32,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
+    private final AuditLogService auditLogService;
 
     public LoginResponse login(AuthCredentials authCredentials) {
         authManager.authenticate(
@@ -41,7 +43,8 @@ public class AuthService {
         );
         User user = userRepo.findOneByEmail(authCredentials.getEmail()).orElseThrow();
         user.setLastLogin(LocalDateTime.now());
-        userRepo.save(user);
+        User updatedUser = userRepo.save(user);
+        auditLogService.audit("login user", updatedUser, User.builder().name("no user").build());
         return LoginResponse.builder().token(jwtService.generateToken(user)).user(user).build();
     }
 
@@ -52,7 +55,7 @@ public class AuthService {
         ) throw new Exception(User.MISSING_USER_CREATOR_ROLE_ERROR);
         Optional<User> userExist = userRepo.findOneByEmail(user.getEmail());
         if (userExist.isPresent()) throw new Exception("Email taken");
-        return userRepo.save(
+        User newUser = userRepo.save(
                 User.builder()
                         .name(user.getName())
                         .lastname(user.getLastname())
@@ -67,6 +70,8 @@ public class AuthService {
                         .email(user.getEmail())
                         .build()
         );
+        auditLogService.audit("register user", newUser);
+        return newUser;
     }
 
     public User getUser() {
@@ -90,6 +95,7 @@ public class AuthService {
             ).collect(Collectors.toList()));
             return userRepo.save(user_);
         });
+        auditLogService.audit("add roles to user", user.get());
         return BasicResponse.<User>builder().data(user.get()).build();
     }
 }
