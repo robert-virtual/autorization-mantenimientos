@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,23 +80,38 @@ public class AuthService {
         return userRepo.findOneByEmail(email).orElseThrow();
     }
 
-    public BasicResponse<User> addRoles(int user_id, UpdateRoles updateRoles) {
+    public User removeRoles(int user_id, UpdateRoles updateRoles) throws Exception {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<User> loggedUser = userRepo.findOneByEmail(userEmail);
-        if (loggedUser.isEmpty()) return BasicResponse.<User>builder().error("Bad Request").build();
-        Optional<User> user = userRepo.findById(user_id);
-        if (user.isEmpty()) return BasicResponse.<User>builder().error("User not found").build();
-        if (loggedUser.get().getRoles().stream().noneMatch(r -> Objects.equals(r.getName(), RoleValues.USER_CREATOR.toString())))
+        User loggedUser = userRepo.findOneByEmail(userEmail).orElseThrow();
+        User user = userRepo.findById(user_id).orElseThrow();
+        if (loggedUser.getRoles().stream().noneMatch(r -> Objects.equals(r.getName(), RoleValues.USER_CREATOR.toString())))
+            throw new Exception("You do not have the required role to update roles");
+
+        Set<Integer> setOfRoles = user.getRoles().stream().map(Role::getId).collect(Collectors.toSet());
+        updateRoles.getRoles().forEach(setOfRoles::remove);
+        user.setRoles(setOfRoles.stream().map(
+                roleId -> Role.builder().id(roleId).build()
+        ).collect(Collectors.toList()));
+        userRepo.save(user);
+        auditLogService.audit("remove roles to user", loggedUser);
+        return user;
+    }
+
+    public BasicResponse<User> addRoles(
+            int user_id, UpdateRoles updateRoles
+    ) {
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User loggedUser = userRepo.findOneByEmail(userEmail).orElseThrow();
+        User user = userRepo.findById(user_id).orElseThrow();
+        if (loggedUser.getRoles().stream().noneMatch(r -> Objects.equals(r.getName(), RoleValues.USER_CREATOR.toString())))
             return BasicResponse.<User>builder().error("You do not have the required role to update roles").build();
-        Set<Integer> setOfRoles = user.get().getRoles().stream().map(Role::getId).collect(Collectors.toSet());
+        Set<Integer> setOfRoles = user.getRoles().stream().map(Role::getId).collect(Collectors.toSet());
         setOfRoles.addAll(updateRoles.getRoles());
-        user.map(user_ -> {
-            user_.setRoles(setOfRoles.stream().map(
-                    roleId -> Role.builder().id(roleId).build()
-            ).collect(Collectors.toList()));
-            return userRepo.save(user_);
-        });
-        auditLogService.audit("add roles to user", user.get());
-        return BasicResponse.<User>builder().data(user.get()).build();
+        user.setRoles(setOfRoles.stream().map(
+                roleId -> Role.builder().id(roleId).build()
+        ).collect(Collectors.toList()));
+        userRepo.save(user);
+        auditLogService.audit("add roles to user", user);
+        return BasicResponse.<User>builder().data(user).build();
     }
 }

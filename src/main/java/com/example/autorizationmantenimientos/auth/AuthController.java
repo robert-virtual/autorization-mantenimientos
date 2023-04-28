@@ -29,6 +29,21 @@ public class AuthController {
         );
     }
 
+    @PutMapping("/user/{user_id}/roles/remove")
+    public ResponseEntity<User> removeRoles(@PathVariable int user_id, @RequestBody UpdateRoles updateRoles) {
+        try {
+            return ResponseEntity.ok(
+                    authService.removeRoles(user_id, updateRoles)
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    null,
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+
+        }
+    }
+
     @PutMapping("/user/{user_id}/roles")
     public ResponseEntity<BasicResponse<User>> addRoles(@PathVariable int user_id, @RequestBody UpdateRoles updateRoles) {
         return ResponseEntity.ok(
