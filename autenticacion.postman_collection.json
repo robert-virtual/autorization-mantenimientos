@@ -1,0 +1,999 @@
+{
+	"info": {
+		"_postman_id": "1cd15c80-2afa-4c17-81b6-ae64b6a1f9c2",
+		"name": "autenticacion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12770124",
+		"_collection_link": "https://www.postman.com/solar-desert-915322/workspace/queries-de-mantenimientos/collection/12770124-1cd15c80-2afa-4c17-81b6-ae64b6a1f9c2?action=share&creator=12770124&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json())\r",
+							"pm.environment.set(\"TOKEN\", pm.response.json().data.token);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"robertocastillo945@gmail.com\",\r\n    \"password\":\"superhardpass12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/auth/login",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "Endpoint for login users this endpoint returns a json with a token and the user information containing roles modules and screens that the user has access to"
+			},
+			"response": [
+				{
+					"name": "login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"robertocastill63@gmail.com\",\r\n    \"password\":\"superhardpass12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/auth/login",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Apr 2023 20:29:35 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2JlcnRvY2FzdGlsbDYzQGdtYWlsLmNvbSIsImV4cCI6MTY4MTE2MjE3NSwiaWF0IjoxNjgxMTU4NTc1fQ.hcHMANiJ3XK1qQ07sPsFXTjWzGOm2G5aQEw6q1ImgoV4A7w_SEANapEre8bzMuGZ3BTo9c6OLjVaaSH3YxMx0g\",\n        \"user\": {\n            \"id\": 5,\n            \"name\": \"Roberto\",\n            \"lastname\": \"Castillo\",\n            \"email\": \"robertocastill63@gmail.com\",\n            \"passwordUpdatedAt\": \"2023-04-10T14:26:40.137\",\n            \"lastLogin\": \"2023-04-10T14:29:35.3955279\",\n            \"createdAt\": \"2023-04-10T14:26:40.137\",\n            \"failedLoginAttempts\": 0,\n            \"status\": \"active\",\n            \"enabled\": true,\n            \"roles\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"query_authorizer\",\n                    \"modules\": []\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"query_creator\",\n                    \"modules\": []\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"user_creator\",\n                    \"modules\": []\n                }\n            ],\n            \"apps\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"ocb_example\",\n                    \"status\": null,\n                    \"tables\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"users\",\n                            \"appId\": 1,\n                            \"fields\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"vaucher_example\",\n                    \"status\": null,\n                    \"tables\": []\n                }\n            ],\n            \"username\": \"robertocastill63@gmail.com\",\n            \"accountNonLocked\": true,\n            \"accountNonExpired\": true,\n            \"credentialsNonExpired\": true\n        }\n    },\n    \"error\": null,\n    \"data_count\": 0,\n    \"data_type\": null\n}"
+				},
+				{
+					"name": "login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"robertocastill63@gmail.com\",\r\n    \"password\":\"superhardpass12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/auth/login",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 20 Apr 2023 17:10:02 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2JlcnRvY2FzdGlsbDYzQGdtYWlsLmNvbSIsImV4cCI6MTY4MjAxNDIwMiwiaWF0IjoxNjgyMDEwNjAyfQ.p4PuIZ8LBVDe1eFH9SeX_GYbEZdxfVjLfrLvHIaVghRWNQVap6txbtyTIkdOB8CQ8_8v8jXe6bDuLtfrsz1YiA\",\n        \"user\": {\n            \"id\": 2,\n            \"name\": \"Roberto\",\n            \"lastname\": \"Castillo\",\n            \"email\": \"robertocastill63@gmail.com\",\n            \"passwordUpdatedAt\": \"2023-04-19T09:09:44.203\",\n            \"lastLogin\": \"2023-04-20T11:10:02.0837949\",\n            \"createdAt\": \"2023-04-19T09:09:44.203\",\n            \"failedLoginAttempts\": 0,\n            \"status\": \"active\",\n            \"enabled\": true,\n            \"roles\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"user_creator\",\n                    \"modules\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"Users\",\n                            \"status\": \"active\",\n                            \"screens\": [\n                                {\n                                    \"id\": 1,\n                                    \"name\": \"Create user\",\n                                    \"link\": \"users/create\",\n                                    \"status\": \"active\"\n                                },\n                                {\n                                    \"id\": 2,\n                                    \"name\": \"List users\",\n                                    \"link\": \"users/list\",\n                                    \"status\": \"active\"\n                                },\n                                {\n                                    \"id\": 4,\n                                    \"name\": \"User details\",\n                                    \"link\": \"users/:id\",\n                                    \"status\": \"active\"\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ],\n            \"apps\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"ocb_example\",\n                    \"status\": \"active\",\n                    \"executeQueryEndpoint\": \"http://localhost:9191/ocb/execute-query\"\n                }\n            ],\n            \"username\": \"robertocastill63@gmail.com\",\n            \"accountNonLocked\": true,\n            \"accountNonExpired\": true,\n            \"credentialsNonExpired\": true\n        }\n    },\n    \"error\": null,\n    \"data_count\": 0,\n    \"data_type\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "create user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"emerson@gmail.com\",\r\n    \"name\":\"Emerson\",\r\n    \"password\":\"superhardpass12\",\r\n    \"lastname\":\"Castillo\",\r\n    \"roles\":[\r\n        2\r\n    ],\r\n    \"apps\":[1]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/auth/register",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "create user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"robertocastill63@gmail.com\",\r\n    \"name\":\"Roberto\",\r\n    \"password\":\"superhardpass12\",\r\n    \"lastname\":\"Castillo\",\r\n    \"roles\":[\r\n        2,3,4\r\n    ],\r\n    \"apps\":[1,2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/auth/register",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Apr 2023 20:26:40 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"id\": 5,\n        \"name\": \"Roberto\",\n        \"lastname\": \"Castillo\",\n        \"email\": \"robertocastill63@gmail.com\",\n        \"passwordUpdatedAt\": \"2023-04-10T14:26:40.1377868\",\n        \"lastLogin\": null,\n        \"createdAt\": \"2023-04-10T14:26:40.1377868\",\n        \"failedLoginAttempts\": 0,\n        \"status\": \"active\",\n        \"enabled\": true,\n        \"roles\": [\n            {\n                \"id\": 2,\n                \"name\": null,\n                \"modules\": null\n            },\n            {\n                \"id\": 3,\n                \"name\": null,\n                \"modules\": null\n            },\n            {\n                \"id\": 4,\n                \"name\": null,\n                \"modules\": null\n            }\n        ],\n        \"apps\": [\n            {\n                \"id\": 1,\n                \"name\": null,\n                \"status\": null,\n                \"tables\": null\n            },\n            {\n                \"id\": 2,\n                \"name\": null,\n                \"status\": null,\n                \"tables\": null\n            }\n        ],\n        \"username\": \"robertocastill63@gmail.com\",\n        \"accountNonLocked\": true,\n        \"accountNonExpired\": true,\n        \"credentialsNonExpired\": true\n    },\n    \"error\": null,\n    \"data_count\": 0,\n    \"data_type\": null\n}"
+				},
+				{
+					"name": "user without role to create users",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"robertocastill63@gmail.com\",\r\n    \"name\":\"Roberto\",\r\n    \"password\":\"superhardpass12\",\r\n    \"lastname\":\"Castillo\",\r\n    \"roles\":[\r\n        2,3,4\r\n    ],\r\n    \"apps\":[1,2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/auth/register",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Apr 2023 20:58:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": null,\n    \"error\": \"You do not have the required role to create users. Contact with the person that created your user to update your roles\",\n    \"data_count\": 0,\n    \"data_type\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "check token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/auth/check-token",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"auth",
+						"check-token"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "check token",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/auth/check-token",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"auth",
+								"check-token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Apr 2023 21:05:15 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "true"
+				}
+			]
+		},
+		{
+			"name": "get user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/auth/user",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "check token",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/auth/check-token",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"auth",
+								"check-token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Apr 2023 21:05:15 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "true"
+				}
+			]
+		},
+		{
+			"name": "add role to user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"USER_ID\", 2);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roles\":[\r\n        3\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/auth/user/{{USER_ID}}/roles",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"auth",
+						"user",
+						"{{USER_ID}}",
+						"roles"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "add role to user",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roles\":[\r\n        3\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/auth/user/{{USER_ID}}/roles",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"{{USER_ID}}",
+								"roles"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 28 Apr 2023 17:02:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Roberto\",\n        \"lastname\": \"Castillo\",\n        \"email\": \"robertocastill63@gmail.com\",\n        \"passwordUpdatedAt\": \"2023-04-21T16:22:04.433\",\n        \"lastLogin\": \"2023-04-21T16:26:09.3851366\",\n        \"createdAt\": \"2023-04-21T16:22:04.433\",\n        \"failedLoginAttempts\": 0,\n        \"status\": \"active\",\n        \"enabled\": true,\n        \"roles\": [\n            {\n                \"id\": 1,\n                \"name\": \"query_authorizer\",\n                \"modules\": []\n            },\n            {\n                \"id\": 2,\n                \"name\": \"query_creator\",\n                \"modules\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Queries\",\n                        \"status\": \"active\",\n                        \"screens\": [\n                            {\n                                \"id\": 3,\n                                \"name\": \"Queries\",\n                                \"link\": \"/queries\",\n                                \"status\": \"active\"\n                            },\n                            {\n                                \"id\": 4,\n                                \"name\": \"Create Query\",\n                                \"link\": \"/queries-create\",\n                                \"status\": \"active\"\n                            }\n                        ]\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Tables\",\n                        \"status\": \"active\",\n                        \"screens\": [\n                            {\n                                \"id\": 7,\n                                \"name\": \"Tables\",\n                                \"link\": \"/tables\",\n                                \"status\": \"active\"\n                            },\n                            {\n                                \"id\": 8,\n                                \"name\": \"Create Table\",\n                                \"link\": \"/tables-create\",\n                                \"status\": \"active\"\n                            }\n                        ]\n                    },\n                    {\n                        \"id\": 4,\n                        \"name\": \"Apps\",\n                        \"status\": \"active\",\n                        \"screens\": [\n                            {\n                                \"id\": 5,\n                                \"name\": \"Apps\",\n                                \"link\": \"/apps\",\n                                \"status\": \"active\"\n                            },\n                            {\n                                \"id\": 6,\n                                \"name\": \"Create App\",\n                                \"link\": \"/apps-create\",\n                                \"status\": \"active\"\n                            }\n                        ]\n                    }\n                ]\n            },\n            {\n                \"id\": 3,\n                \"name\": \"user_creator\",\n                \"modules\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Users\",\n                        \"status\": \"active\",\n                        \"screens\": [\n                            {\n                                \"id\": 1,\n                                \"name\": \"Create Users\",\n                                \"link\": \"/users-create\",\n                                \"status\": \"active\"\n                            },\n                            {\n                                \"id\": 2,\n                                \"name\": \"Users\",\n                                \"link\": \"/users\",\n                                \"status\": \"active\"\n                            }\n                        ]\n                    }\n                ]\n            }\n        ],\n        \"apps\": [\n            {\n                \"id\": 1,\n                \"name\": \"ocb_example\",\n                \"status\": null,\n                \"executeQueryEndpoint\": \"http://localhost:9191/ocb/execute-query\"\n            }\n        ],\n        \"username\": \"robertocastill63@gmail.com\",\n        \"accountNonLocked\": true,\n        \"credentialsNonExpired\": true,\n        \"accountNonExpired\": true\n    },\n    \"error\": null,\n    \"data_count\": 0,\n    \"data_type\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "remove role from user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"USER_ID\", 2);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roles\":[\r\n        3\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/auth/user/{{USER_ID}}/roles/remove",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"auth",
+						"user",
+						"{{USER_ID}}",
+						"roles",
+						"remove"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "remove role from user",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roles\":[\r\n        3\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/auth/user/{{USER_ID}}/roles/remove",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"{{USER_ID}}",
+								"roles",
+								"remove"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 28 Apr 2023 17:03:11 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"name\": \"Roberto\",\n    \"lastname\": \"Castillo\",\n    \"email\": \"robertocastill63@gmail.com\",\n    \"passwordUpdatedAt\": \"2023-04-21T16:22:04.433\",\n    \"lastLogin\": \"2023-04-21T16:26:09.3851366\",\n    \"createdAt\": \"2023-04-21T16:22:04.433\",\n    \"failedLoginAttempts\": 0,\n    \"status\": \"active\",\n    \"enabled\": true,\n    \"roles\": [\n        {\n            \"id\": 1,\n            \"name\": \"query_authorizer\",\n            \"modules\": []\n        },\n        {\n            \"id\": 2,\n            \"name\": \"query_creator\",\n            \"modules\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Queries\",\n                    \"status\": \"active\",\n                    \"screens\": [\n                        {\n                            \"id\": 3,\n                            \"name\": \"Queries\",\n                            \"link\": \"/queries\",\n                            \"status\": \"active\"\n                        },\n                        {\n                            \"id\": 4,\n                            \"name\": \"Create Query\",\n                            \"link\": \"/queries-create\",\n                            \"status\": \"active\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Tables\",\n                    \"status\": \"active\",\n                    \"screens\": [\n                        {\n                            \"id\": 7,\n                            \"name\": \"Tables\",\n                            \"link\": \"/tables\",\n                            \"status\": \"active\"\n                        },\n                        {\n                            \"id\": 8,\n                            \"name\": \"Create Table\",\n                            \"link\": \"/tables-create\",\n                            \"status\": \"active\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"Apps\",\n                    \"status\": \"active\",\n                    \"screens\": [\n                        {\n                            \"id\": 5,\n                            \"name\": \"Apps\",\n                            \"link\": \"/apps\",\n                            \"status\": \"active\"\n                        },\n                        {\n                            \"id\": 6,\n                            \"name\": \"Create App\",\n                            \"link\": \"/apps-create\",\n                            \"status\": \"active\"\n                        }\n                    ]\n                }\n            ]\n        }\n    ],\n    \"apps\": [\n        {\n            \"id\": 1,\n            \"name\": \"ocb_example\",\n            \"status\": null,\n            \"executeQueryEndpoint\": \"http://localhost:9191/ocb/execute-query\"\n        }\n    ],\n    \"username\": \"robertocastill63@gmail.com\",\n    \"accountNonLocked\": true,\n    \"credentialsNonExpired\": true,\n    \"accountNonExpired\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "add app to user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"USER_ID\", 1);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"app_id\":2,\r\n    \"user_id\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/apps/add-user",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"apps",
+						"add-user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
