@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class AppRequest {
     private String name;
+    private String endpoint;
 }

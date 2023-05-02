@@ -22,7 +22,13 @@ public class AppsService {
     private final AuditLogService auditLogService;
 
     public App create(AppRequest app) {
-        App newApp = appRepo.save(App.builder().name(app.getName()).status(App.STATUS_ACTIVE).build());
+        App newApp = appRepo.save(
+                App.builder()
+                        .name(app.getName())
+                        .endpoint(app.getEndpoint())
+                        .status(App.STATUS_ACTIVE)
+                        .build()
+        );
         auditLogService.audit("create app", newApp);
         return newApp;
     }
