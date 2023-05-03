@@ -1,9 +1,7 @@
 package com.example.autorizationmantenimientos.config;
 
-import com.example.autorizationmantenimientos.model.App;
 import com.example.autorizationmantenimientos.model.Role;
 import com.example.autorizationmantenimientos.model.User;
-import com.example.autorizationmantenimientos.repository.AppRepository;
 import com.example.autorizationmantenimientos.repository.RoleRepository;
 import com.example.autorizationmantenimientos.repository.UserRepository;
 import com.example.autorizationmantenimientos.utils.RoleValues;
@@ -26,7 +24,6 @@ import java.util.stream.Collectors;
 public class SeedData {
     private final UserRepository userRepo;
     private final RoleRepository roleRepo;
-    private final AppRepository appRepo;
     @Value("${app.admin.lastname}")
     private String adminLastname;
     @Value("${app.admin.name}")
@@ -35,40 +32,33 @@ public class SeedData {
     private String adminEmail;
     @Value("${app.admin.password}")
     private String adminPassword;
-    private List<Integer> roleId;
-    private List<Integer> apps;
+    private List<Integer> roleIds;
 
     @EventListener
     public void seed(ContextRefreshedEvent event) {
         seedRoles();
-        seedApps();
         seedUsers();
     }
 
-    public void seedApps() {
-        List<String> appsNames = List.of("ocb_example", "vaucher_example");
-        List<App> appsFound = appRepo.findByNameIn(appsNames);
-        if (new HashSet<>(appsFound.stream().map(App::getName).collect(Collectors.toList())).containsAll(appsNames)) {
-            apps = appsFound.stream().map(App::getId).collect(Collectors.toList());
-            return;
-        }
-        appsNames = appsNames.stream().filter(x -> appsFound.stream().noneMatch(y -> Objects.equals(y.getName(), x))).collect(Collectors.toList());
-        roleId = appRepo.saveAll(appsNames.stream().map(x -> App.builder().name(x).build()).collect(Collectors.toList())).stream().map(App::getId).collect(Collectors.toList());
-    }
+
 
     public void seedRoles() {
-        List<String> roles = List.of(
+        List<String> roleNames = List.of(
                 RoleValues.QUERY_AUTHORIZER.toString(),
                 RoleValues.QUERY_CREATOR.toString(),
                 RoleValues.USER_CREATOR.toString()
         );
-        List<Role> role = roleRepo.findByNameIn(roles);
-        if (new HashSet<>(role.stream().map(Role::getName).collect(Collectors.toList())).containsAll(roles)) {
-            roleId = role.stream().map(Role::getId).collect(Collectors.toList());
+        List<Role> roles = roleRepo.findByNameIn(roleNames);
+        if (new HashSet<>(roles.stream().map(Role::getName).collect(Collectors.toList())).containsAll(roleNames)) {
+            roleIds = roles.stream().map(Role::getId).collect(Collectors.toList());
             return;
         }
-        roles = roles.stream().filter(x -> role.stream().noneMatch(y -> Objects.equals(y.getName(), x))).collect(Collectors.toList());
-        roleId = roleRepo.saveAll(roles.stream().map(x -> Role.builder().name(x).build()).collect(Collectors.toList())).stream().map(Role::getId).collect(Collectors.toList());
+        roleNames = roleNames.stream().filter(
+                roleName -> roles.stream().noneMatch(role -> Objects.equals(role.getName(), roleName))
+        ).collect(Collectors.toList());
+        roleIds = roleRepo.saveAll(roleNames.stream().map(
+                roleName -> Role.builder().name(roleName).build()
+        ).collect(Collectors.toList())).stream().map(Role::getId).collect(Collectors.toList());
     }
 
     public void seedUsers() {
@@ -84,7 +74,7 @@ public class SeedData {
                         .email(adminEmail)
                         .password(new BCryptPasswordEncoder()
                                 .encode(adminPassword))
-                        .roles(roleId.stream().map(x -> Role.builder().id(x).build()).collect(Collectors.toList()))
+                        .roles(roleIds.stream().map(x -> Role.builder().id(x).build()).collect(Collectors.toList()))
                         .status(User.STATUS_ACTIVE)
                         .createdAt(LocalDateTime.now())
                         .enabled(true)
